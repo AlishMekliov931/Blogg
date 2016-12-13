@@ -1,0 +1,56 @@
+﻿@model blog.Models.Article
+@using blog.Models
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <article>
+        <header>
+            <h2>
+                @Model.Title
+            </h2>
+        </header>
+        <p>
+            @Model.Content
+        </p>
+        <small class="author pull-right">
+            author @Model.Author.FullName
+        </small>
+
+
+        @if (Model.Comments.Any())
+        {
+            <h4>Comments:</h4>
+
+            <div>
+                @foreach (var comment in Model.Comments)
+                {
+                    <h4 ><li>@comment.Content</li></h4>
+                }
+            </div>
+        }
+
+
+        <footer class="pull-right">
+            @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
+            {
+                <span class="pull-right">
+                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                </span>              
+            }
+
+            @if (Request.IsAuthenticated)
+            {
+                @*@Html.ActionLink("Comment", "Create", "Comment", new { @id = Model.Id }, new { @class = "btn btn-primary btn-xs" })*@
+                @Html.Partial("_CreateCommentPartial", new Comment() { ArticleId = Model.Id })
+            }
+            <span class="pull-right">
+                @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
+            </span>
+        </footer>
+    </article>
+</div>
+<hr />
