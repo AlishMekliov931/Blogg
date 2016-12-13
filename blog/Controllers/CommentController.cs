@@ -1,6 +1,7 @@
 ﻿using blog.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -52,6 +53,31 @@ namespace blog.Controllers
 
                 return RedirectToAction("Details", "Article", new { id = id });
             }
+        }
+
+        //
+        // POST: Comment/Delete
+        [HttpPost]
+        [Authorize]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            using (var database = new BlogDbContext())
+            {
+       
+                var comment = database.Comments
+                    .Where(c => c.Id == id)
+                    .FirstOrDefault();
+
+                database.Comments.Remove(comment);
+
+                database.SaveChanges();
+
+                return RedirectToAction("Details", "Article", new { id = comment.ArticleId });
+            }  
         }
     }
 }

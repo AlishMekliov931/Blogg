@@ -4,53 +4,63 @@
 @{
     ViewBag.Title = "Details";
 }
-
+    <span class="author pull-right">
+        @Model.Author.FullName
+    </span>
 <div class="container">
-    <article>
-        <header>
-            <h2>
-                @Model.Title
-            </h2>
-        </header>
-        <p>
-            @Model.Content
-        </p>
-        <small class="author pull-right">
-            author @Model.Author.FullName
-        </small>
+    <div class="well">
 
-
-        @if (Model.Comments.Any())
-        {
-            <h4>Comments:</h4>
-
-            <div>
-                @foreach (var comment in Model.Comments)
+        <article>
+            <header>
+                <h1 style="text-align:center;color: #080d49">
+                    @Model.Title
+                </h1>
+            </header>
+            <h5 style="text-align:center;color: #080d49">
+                @Model.Content
+            </h5>
+                <footer style="display: inline-block">
+                        @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
+                    {
+                            <span class="pull-right">
+                                @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                                @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
+                            </span>
+                        }
+                </footer>            
+        </article>
+ 
+            <div style="display:inline">
+                @if (Request.IsAuthenticated)
                 {
-                    <h4 ><li>@comment.Content</li></h4>
+                    @*@Html.ActionLink("Comment", "Create", "Comment", new { @id = Model.Id }, new { @class = "btn btn-primary btn-xs" })*@
+                    @Html.Partial("_CreateCommentPartial", new Comment() { ArticleId = Model.Id })
                 }
             </div>
+
+        @if (Model.Comments.Any())
+         {
+            <h4 style="color: #684d01">Comments:</h4>
+
+                <div cl>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <h4><li style="color: #684d01">@comment.Content</li></h4>
+                        <div>
+                            @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
+                            {
+                                using (Html.BeginForm("Delete", "Comment", new { id = comment.Id}, FormMethod.Post, new { @class = "form-horizontal" }))
+                                {
+                                    <div class="form-group">
+                                            <input type="submit" value="Delete" class="btn btn-xs btn-danger" />
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                    }
+                </div>
         }
-
-
-        <footer class="pull-right">
-            @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
-            {
-                <span class="pull-right">
-                    @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
-                    @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-                </span>              
-            }
-
-            @if (Request.IsAuthenticated)
-            {
-                @*@Html.ActionLink("Comment", "Create", "Comment", new { @id = Model.Id }, new { @class = "btn btn-primary btn-xs" })*@
-                @Html.Partial("_CreateCommentPartial", new Comment() { ArticleId = Model.Id })
-            }
-            <span class="pull-right">
-                @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs" })
-            </span>
-        </footer>
-    </article>
-</div>
-<hr />
+    </div>
+    <hr />
+    </div>

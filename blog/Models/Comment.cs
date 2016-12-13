@@ -9,6 +9,11 @@ namespace blog.Models
 {
     public class Comment
     {
+        public Comment()
+        {
+           
+        }
+
         [Key]
         public int Id { get; set; }
 
