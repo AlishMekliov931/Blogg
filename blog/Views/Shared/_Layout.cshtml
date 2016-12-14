@@ -20,6 +20,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        @Html.ActionLink("Search", "Search", "Article")
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

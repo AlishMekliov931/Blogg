@@ -23,6 +23,9 @@ namespace blog.Models
         [ForeignKey("Article")]
         public int ArticleId { get; set; }
 
+        [Required]
+        public string UeserEmail { get; set; }
+
         public virtual Article Article { get; set; }
     }
 }
