@@ -20,6 +20,8 @@ namespace blog.Models
 
         public string AuthorId { get; set; }
 
+        public int Likes { get; set; }
+
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 

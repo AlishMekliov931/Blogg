@@ -54,6 +54,11 @@ namespace blog.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
+                if (comment.Content == null)
+                {
+                    return RedirectToAction("Details", "Article", new { id = id });
+                }
+
                 comment.Article = article;
                 comment.ArticleId = article.Id;
                 comment.UeserEmail = userEmail;

@@ -27,9 +27,17 @@
                                 @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
                             </span>
                         }
-                </footer>            
+                </footer>   
+            @if (Request.IsAuthenticated)
+            { 
+                <span class="pull-right">
+                    @Html.ActionLink("Like", "Post", "Like", new { @name = User.Identity.Name, id = Model.Id }, new { @class = "btn btn-success btn-xs" })
+                </span><br />     
+            }
+            <span class="pull-right">
+                @Model.Likes Like it!
+            </span>         
         </article>
- 
             <div style="display:inline">
                 @if (Request.IsAuthenticated)
                 {
@@ -37,7 +45,6 @@
                     @Html.Partial("_CreateCommentPartial", new Comment() { ArticleId = Model.Id })
                 }
             </div>
-
         @if (Model.Comments.Any())
          {
             <h4 style="color: #684d01">Comments:</h4>

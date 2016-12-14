@@ -33,6 +33,33 @@ namespace blog.Controllers
         }
 
 
+   // public ActionResult Like(string email, int? id)
+   // {
+   //     using (var db = new BlogDbContext())
+   //     {
+   //
+   //         var article = db.Articles
+   //         .Where(a => a.Id == id)
+   //          .First();
+   //
+   //         if (!article.UserEmail.Contains(email))
+   //         {
+   //             article.UserEmail.Add(email);
+   //             article.Likes++;
+   //         }
+   //         else
+   //         {
+   //             article.UserEmail.Remove(email);
+   //             article.Likes--;
+   //         }
+   //         db.Entry(article).State = EntityState.Modified;
+   //         db.SaveChanges();
+   //
+   //         return RedirectToAction("Details", "Article", new { id = id });
+   //     }
+   // }
+
+
         public ActionResult Search(string ask)
         {
             using (var db = new BlogDbContext())
@@ -49,6 +76,7 @@ namespace blog.Controllers
 
 
                 return View(articles);
+                
             }
         }
 

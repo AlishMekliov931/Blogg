@@ -31,6 +31,8 @@ namespace blog.Models
             this.DateAdded = DateTime.Now;
             this.tags = new HashSet<Tags>();
             this.comments = new HashSet<Comment>();
+            this.Likes = 0;
+
         }
 
 
@@ -44,6 +46,14 @@ namespace blog.Models
         public string Content { get; set; }
 
         public DateTime DateAdded { get; set; }
+
+        public int Likes { get; set; }
+    //
+    //   public ICollection<string> UserEmail
+    //   {
+    //       get { return this.comments; }
+    //       set { this.comments = value; }
+    //   }
 
         [ForeignKey("Author")]
         public string AuthorId { get; set;}
