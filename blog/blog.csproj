@@ -195,6 +195,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\Utils.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\CategoryController.cs" />
     <Compile Include="Controllers\Admin\UserController.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Views\Home\ListArticles.cshtml" />
     <Content Include="Views\Tag\List.cshtml" />
     <Content Include="Views\Shared\_CreateCommentPartial.cshtml" />
+    <Content Include="Views\Article\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -39,6 +39,16 @@ namespace blog.Controllers
             {
                 var article = context.Articles.FirstOrDefault(a => a.Id == id);
 
+                var userEmail = context.Users
+                   .Where(u => u.UserName == this.User.Identity.Name)
+                   .First()
+                   .Email;
+
+                if (userEmail == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
                 if (article == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -46,6 +56,7 @@ namespace blog.Controllers
 
                 comment.Article = article;
                 comment.ArticleId = article.Id;
+                comment.UeserEmail = userEmail;
 
                 article.Comments.Add(comment);
 

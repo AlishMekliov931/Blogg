@@ -32,6 +32,26 @@ namespace blog.Controllers
             }
         }
 
+
+        public ActionResult Search(string ask)
+        {
+            using (var db = new BlogDbContext())
+            {
+                var articles = db.Articles
+                  .Include(a => a.Author)
+                  .Include(a => a.Tags)
+                  .ToList();
+
+                if (!String.IsNullOrEmpty(ask))
+                {
+                    articles = articles.Where(s => s.Title.ToLower().Contains(ask.ToLower())).ToList();
+                }
+
+
+                return View(articles);
+            }
+        }
+
         //
         // GET: Article/Details
         public ActionResult Details(int? id)

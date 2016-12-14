@@ -41,25 +41,23 @@
         @if (Model.Comments.Any())
          {
             <h4 style="color: #684d01">Comments:</h4>
-
-                <div cl>
-                    @foreach (var comment in Model.Comments)
-                    {
-                        <h4><li style="color: #684d01">@comment.Content</li></h4>
-                        <div>
-                            @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name))
-                            {
-                                using (Html.BeginForm("Delete", "Comment", new { id = comment.Id}, FormMethod.Post, new { @class = "form-horizontal" }))
-                                {
-                                    <div class="form-group">
-                                            <input type="submit" value="Delete" class="btn btn-xs btn-danger" />
-                                    </div>
-                                }
-                            }
-                        </div>
-
-                    }
-                </div>
+              <div cl>
+                  @foreach (var comment in Model.Comments)
+                  {
+                     <h4><li style="color: #684d01">@comment.Content</li></h4>
+                     <div>
+                         @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name) || User.Identity.Name.Equals(comment.UeserEmail))
+                         {
+                             using (Html.BeginForm("Delete", "Comment", new { id = comment.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
+                             {
+                                 <div class="form-group">
+                                     <input type="submit" value="Delete" class="btn btn-xs" style="background: #ffa1a1" />
+                                 </div>
+                             }
+                         }
+                     </div>
+                  }
+              </div>
         }
     </div>
     <hr />

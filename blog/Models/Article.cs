@@ -71,5 +71,10 @@ namespace blog.Models
         {
             return this.Author.UserName.Equals(name);
         }
+
+        public bool IsAuthorOfComment(string name)
+        {
+            return this.Author.UserName.Equals(name);
+        }
     }
 }

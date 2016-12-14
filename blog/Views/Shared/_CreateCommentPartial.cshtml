@@ -10,15 +10,13 @@
             @Html.ValidationSummary("", new { @class = "text-danger" })
 
             <div class="form-group">
-                <div>
+                <header>
                     @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @rows = "3" })
-                </div>
-            </div>
+                </header>
 
-            <div class="form-group">
                 <div class="pull-left">
                     @*@Html.ActionLink("Cancel", "Index", "Article", null, new { @class = "btn btn-xs btn-default" })*@
-                    <input type="submit" value="Post" class="btn btn-xs btn-primary" />
+                    <input type="submit" value="Post" class="btn btn-xs" style="background: #17bfd0" />
                 </div>
             </div>
         }
