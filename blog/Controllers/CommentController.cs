@@ -44,6 +44,11 @@ namespace blog.Controllers
                    .First()
                    .Email;
 
+                var userName = context.Users
+                 .Where(u => u.UserName == this.User.Identity.Name)
+                 .First()
+                 .FullName;
+
                 if (userEmail == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -56,11 +61,12 @@ namespace blog.Controllers
 
                 if (comment.Content == null)
                 {
-                    return RedirectToAction("Details", "Article", new { id = id });
+                   return RedirectToAction("Details", "Article", new { id = id });
                 }
 
                 comment.Article = article;
                 comment.ArticleId = article.Id;
+                comment.Author = userName;
                 comment.UeserEmail = userEmail;
 
                 article.Comments.Add(comment);

@@ -25,18 +25,25 @@
                             <span class="pull-right">
                                 @Html.ActionLink("Edit", "Edit", "Article", new { @id = Model.Id }, new { @class = "btn btn-success btn-xs" })
                                 @Html.ActionLink("Delete", "Delete", "Article", new { @id = Model.Id }, new { @class = "btn btn-danger btn-xs" })
-                            </span>
+                            </span><br />
                         }
-                </footer>   
-            @if (Request.IsAuthenticated)
-            { 
-                <span class="pull-right">
-                    @Html.ActionLink("Like", "Post", "Like", new { @name = User.Identity.Name, id = Model.Id }, new { @class = "btn btn-success btn-xs" })
-                </span><br />     
-            }
-            <span class="pull-right">
+                </footer> 
+            <div style="border: 2px ; color: #ffffff; padding: 5px; border-radius: 10px; background: #3f95fe" class="pull-right">
                 @Model.Likes Like it!
-            </span>         
+            </div><br />  
+            @if (Request.IsAuthenticated && !Model.IsLiked(User.Identity.Name, Model.Id))
+            {
+                <br/>
+                <span class="pull-right">
+                    @Html.ActionLink("Like", "Post", "Like", new { @name = User.Identity.Name, id = Model.Id }, new { @class = "btn btn-info btn-xs", @style = "margin-right: 11px"})
+                </span><br />
+            } else if (Request.IsAuthenticated && Model.IsLiked(User.Identity.Name, Model.Id))
+            {
+                                <br/>
+                <span class="pull-right">
+                    @Html.ActionLink("Liked", "Post", "Like", new { @name = User.Identity.Name, id = Model.Id }, new { @class = "btn btn-info btn-xs", @style = "margin-right: 11px"})
+                </span><br />
+            }
         </article>
             <div style="display:inline">
                 @if (Request.IsAuthenticated)
@@ -46,19 +53,22 @@
                 }
             </div>
         @if (Model.Comments.Any())
-         {
-            <h4 style="color: #684d01">Comments:</h4>
+        { 
+            <br />
+            <h3 style="color: #684d01">Comments:</h3>
               <div cl>
                   @foreach (var comment in Model.Comments)
-                  {
-                     <h4><li style="color: #684d01">@comment.Content</li></h4>
+                  {             
+                     <h4 style="color: #684d01">@comment.Author: @comment.Content </h4>
+                    <div class="author pull-left">    
+                    </div>
                      <div>
                          @if (User.IsInRole("Admin") || Model.IsAuthor(User.Identity.Name) || User.Identity.Name.Equals(comment.UeserEmail))
                          {
                              using (Html.BeginForm("Delete", "Comment", new { id = comment.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
                              {
                                  <div class="form-group">
-                                     <input type="submit" value="Delete" class="btn btn-xs" style="background: #ffa1a1" />
+                                     <input type="submit" value="Delete" class="btn btn-xs" style="background: #ffa1a1; margin-left: 15px" />
                                  </div>
                              }
                          }

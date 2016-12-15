@@ -86,5 +86,23 @@ namespace blog.Models
         {
             return this.Author.UserName.Equals(name);
         }
+
+        public bool IsLiked(string name, int id)
+        {
+            using ( var db = new BlogDbContext())
+            {
+                bool chek = false;
+
+                    foreach (var like in db.Likes)
+                    {
+                        if (like.ArticleId.Equals(id) && like.Author.Equals(name))
+                        {
+                            chek = true;
+                        }
+
+                }
+                return chek;
+            }
+        }
     }
 }

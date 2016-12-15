@@ -9,6 +9,9 @@
             @foreach (var article in Model)
             {
                 <div class="col-sm-6">
+                    <small class="author pull-right">
+                        @article.Author.FullName
+                    </small>
                     <article>
                         <header>
                             <h2>
@@ -20,6 +23,9 @@
                         </p>
 
                         <footer>
+                            <div style="border: 2px ; color: #ffffff; padding: 5px; border-radius: 10px; background: #3f95fe" class="pull-right">
+                                @article.Likes Like it!
+                            </div><br /> 
                             <div class="pull-left">
                                 @foreach (var tag in article.Tags)
                                 {
@@ -28,11 +34,7 @@
                                     </span>
                                 }
                             </div>
-                            <small class="author pull-right">
-                                @article.Author.FullName
-                            </small>
                         </footer>
-
                     </article>
                 </div>
                 }

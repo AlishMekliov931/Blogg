@@ -26,6 +26,9 @@ namespace blog.Models
         [Required]
         public string UeserEmail { get; set; }
 
+        [Required]
+        public string Author { get; set; }
+
         public virtual Article Article { get; set; }
     }
 }

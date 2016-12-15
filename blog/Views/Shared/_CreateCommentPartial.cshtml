@@ -11,12 +11,12 @@
 
             <div class="form-group">
                 <header>
-                    @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @rows = "3" })
+                    @Html.TextAreaFor(m => m.Content, new {@class = "form-control", @rows = "3", @placeholder = "Write comment..." })
                 </header>
 
                 <div class="pull-left">
                     @*@Html.ActionLink("Cancel", "Index", "Article", null, new { @class = "btn btn-xs btn-default" })*@
-                    <input type="submit" value="Post" class="btn btn-xs" style="background: #17bfd0" />
+                    <input type="submit" value="Post" class="btn btn-xs" style="background: #17bfd0; margin-left: 239px; margin-top: 5px;" />
                 </div>
             </div>
         }
