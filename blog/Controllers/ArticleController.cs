@@ -135,31 +135,36 @@ namespace blog.Controllers
         [Authorize]
         public ActionResult Create(ArticleViewModel model)
         {
-            if (ModelState.IsValid)
-            {
                 using (var database = new BlogDbContext())
-                { 
+                {
+                if (ModelState.IsValid)
+                {
 
-                // Get author id
-                var authorId = database.Users
-                        .Where(u => u.UserName == this.User.Identity.Name)
-                        .First()
-                        .Id;
+                    // Get author id
+                    var authorId = database.Users
+                            .Where(u => u.UserName == this.User.Identity.Name)
+                            .First()
+                            .Id;
 
                     // Set articles author
 
                     var article = new Article(authorId, model.Title, model.Content, model.CategoryId);
 
                     this.SetArticleTags(article, model, database);
-  
+
                     // Save article in DB
                     database.Articles.Add(article);
                     database.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+
+                     model.Categories = database.Categories
+                    .OrderBy(c => c.Name)
+                    .ToList();
+
+                return View(model);
             }
-        }
-            return View(model);
         }
 
         //

@@ -25,6 +25,8 @@ namespace blog.Models
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
 
+        public virtual Category Category { get; set; }
+
         public string Tags { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
