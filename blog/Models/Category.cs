@@ -24,6 +24,8 @@ namespace blog.Models
         [StringLength(20)]
         public string Name { get; set; }
 
+        public byte[] image { get; set; } 
+
         public virtual ICollection<Article> Articles { get; set; }
     }
 }

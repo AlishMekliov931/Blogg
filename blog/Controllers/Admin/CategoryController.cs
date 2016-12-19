@@ -39,12 +39,26 @@ namespace blog.Controllers.Admin
         //
         // Post: Category/Create
         [HttpPost]
-        public ActionResult Create(Category category)
+        public ActionResult Create(Category category, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
                 using (var db = new BlogDbContext())
                 {
+                    if (file != null)
+                    {
+                        category.image = new byte[file.ContentLength];
+                        file.InputStream.Read(category.image, 0, file.ContentLength);
+
+
+                    }
+                    foreach (var currentCategory in db.Categories)
+                    {
+                        if (currentCategory.Name.ToLower().Equals(category.Name.ToLower()))
+                        {
+                            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        }
+                    }
                     db.Categories.Add(category);
                     db.SaveChanges();
 
@@ -85,7 +99,9 @@ namespace blog.Controllers.Admin
             {
                 using (var db = new BlogDbContext())
                 {
+
                     db.Entry(category).State = EntityState.Modified;
+                    db.Entry(category).Property("image").IsModified = false;
                     db.SaveChanges();
 
                     return RedirectToAction("Index");

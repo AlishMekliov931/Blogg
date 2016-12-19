@@ -1,0 +1,50 @@
+﻿@model IEnumerable<blog.Models.Article>
+
+@{
+    ViewBag.Title = "Search";
+}
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("Search", "Article"))
+        {
+            <p>
+                @Html.TextBox("ask")
+                <input type="submit" value="Search" class="btn btn-sm" style="background: #ffdb00" />
+            </p>
+        }
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6">
+                <small class="author pull-right">
+                    @item.Author.FullName
+                </small>
+                <article>
+                    <header>
+                        <h2>
+                            @Html.ActionLink(@item.Title, "Details", "Article", new { @id = item.Id }, null)
+                        </h2>
+                    </header>
+                    <p>
+                        @blog.Classes.Utils.CutText(item.Content, 250)
+                    </p>
+                    <footer>
+                        <div style="border: 2px ; color: #ffffff; padding: 5px; border-radius: 10px; background: #3f95fe" class="pull-right">
+                            @item.Likes Like it!
+                        </div><br /> 
+                        <div class="pull-left">
+                            @foreach (var tag in item.Tags)
+                            {
+                                <span>
+                                    @Html.ActionLink(tag.Name, "List", "Tag", new { @id = tag.Id }, new { @class = "btn btn-default btn-xs" })
+                                </span>
+                            }
+                        </div>
+                    </footer>
+                </article>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+
+

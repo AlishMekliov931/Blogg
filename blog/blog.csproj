@@ -229,13 +229,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\BMV.png" />
-    <Content Include="Images\Audi.png" />
-    <Content Include="Images\Lamborghini.png" />
-    <Content Include="Images\Mercedes-Benz.png" />
-    <Content Include="Images\Opel.png" />
-    <Content Include="Images\Porche.png" />
-    <Content Include="Images\VW.png" />
+    <Content Include="Images\NoImage.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
