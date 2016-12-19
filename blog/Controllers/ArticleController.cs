@@ -137,7 +137,7 @@ namespace blog.Controllers
         {
                 using (var database = new BlogDbContext())
                 {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && model.Tags != null)
                 {
 
                     // Get author id
