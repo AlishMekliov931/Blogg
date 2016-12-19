@@ -93,7 +93,7 @@ namespace blog.Controllers.Admin
         //
         // POST: Category/Edit
         [HttpPost]
-        public ActionResult Edit(Category category)
+        public ActionResult Edit(Category category, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,17 @@ namespace blog.Controllers.Admin
                 {
 
                     db.Entry(category).State = EntityState.Modified;
-                    db.Entry(category).Property("image").IsModified = false;
+                    if (file != null)
+                    {
+                        category.image = new byte[file.ContentLength];
+                        file.InputStream.Read(category.image, 0, file.ContentLength);
+
+
+                    }
+                    else
+                    {
+                        db.Entry(category).Property("image").IsModified = false;
+                    }
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -144,7 +154,7 @@ namespace blog.Controllers.Admin
 
                 var category = db.Categories.FirstOrDefault(c => c.Id == id);
 
-                var categoryArticles = db.Articles.ToList();
+                var categoryArticles = category.Articles.ToList();
 
                 foreach (var article in categoryArticles)
                 {
