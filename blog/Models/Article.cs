@@ -48,7 +48,7 @@ namespace blog.Models
         public DateTime DateAdded { get; set; }
 
         public int Likes { get; set; }
-    //
+
     //   public ICollection<string> UserEmail
     //   {
     //       get { return this.comments; }
